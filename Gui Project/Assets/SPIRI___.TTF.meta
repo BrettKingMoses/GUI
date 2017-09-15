@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4e0ab0f3bb1d25d4696cdc5664468172
+timeCreated: 1505448881
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Spiral Initials
+  fontNames:
+  - Spiral Initials
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

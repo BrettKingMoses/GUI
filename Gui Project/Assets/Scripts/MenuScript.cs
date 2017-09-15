@@ -28,10 +28,13 @@ public class MenuScript : MonoBehaviour
     public KeyCode sprint;
     public KeyCode interact;
     public KeyCode holdingKey;
+    public KeyCode fire;
 
     [Header("References")]
     public Light dirLight;
     public AudioSource music;
+    public GUISkin menuFont;
+    public GUIStyle menuStyle;
     #endregion Variables
     // Use this for initialization
     void Start()
@@ -66,7 +69,8 @@ public class MenuScript : MonoBehaviour
     {
         if (!showOptions)
         {
-            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");//background
+            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "", menuStyle);//background
+            //GUI.skin = menuFont;
             GUI.Box(new Rect(4 * scrW, 0.25f * scrH, 8 * scrW, 2 * scrH), "Easycoded Main Menu");
             //buttons
             if (GUI.Button(new Rect(6 * scrW, 4 * scrH, 4 * scrW, scrH), "Play"))
@@ -84,6 +88,7 @@ public class MenuScript : MonoBehaviour
         }
         else if (showOptions)
         {
+            //GUI.skin = menuFont;
             GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");//background
             GUI.Box(new Rect(4 * scrW, 0.25f * scrH, 8 * scrW, 2 * scrH), "Easycoded Options");
             //set our aspect ratio if screen size changes
@@ -100,19 +105,19 @@ public class MenuScript : MonoBehaviour
             #region KeyBinding
             //set up buttons like in other script but less tedious and sad
             GUI.Box(new Rect(12 * scrW, scrH, scrW, scrH), "Forward");
-            GUI.Box(new Rect(12 * scrW, 2*scrH, scrW, scrH), "Backwards");
-            GUI.Box(new Rect(12 * scrW, 3*scrH, scrW, scrH), "Interact");
-            GUI.Box(new Rect(12 * scrW, 4*scrH, scrW, scrH), "Secondary");
-            GUI.Box(new Rect(12 * scrW, 5*scrH, scrW, scrH), "Fire");
-            GUI.Box(new Rect(12 * scrW, 6*scrH, scrW, scrH), "Right");
-            GUI.Box(new Rect(12 * scrW, 7*scrH, scrW, scrH), "Left");
-            GUI.Button(new Rect(13 * scrW, scrH, scrW, scrH), "W");
-            GUI.Button(new Rect(13 * scrW, 2 * scrH, scrW, scrH), "S");
-            GUI.Button(new Rect(13 * scrW,  3* scrH, scrW, scrH), "F");
-            GUI.Button(new Rect(13 * scrW,  4* scrH, scrW, scrH), "Alt");
-            GUI.Button(new Rect(13 * scrW,  5* scrH, scrW, scrH), "Left Mouse");
-            GUI.Button(new Rect(13 * scrW,  6* scrH, scrW, scrH), "D");
-            GUI.Button(new Rect(13 * scrW,  7* scrH, scrW, scrH), "A");
+            GUI.Box(new Rect(12 * scrW, 2 * scrH, scrW, scrH), "Backwards");
+            GUI.Box(new Rect(12 * scrW, 3 * scrH, scrW, scrH), "Interact");
+            GUI.Box(new Rect(12 * scrW, 4 * scrH, scrW, scrH), "Sprint");
+            GUI.Box(new Rect(12 * scrW, 5 * scrH, scrW, scrH), "Fire");
+            GUI.Box(new Rect(12 * scrW, 6 * scrH, scrW, scrH), "Right");
+            GUI.Box(new Rect(12 * scrW, 7 * scrH, scrW, scrH), "Left");
+            GUI.Button(new Rect(13 * scrW, scrH, scrW, scrH), forward.ToString());
+            GUI.Button(new Rect(13 * scrW, 2 * scrH, scrW, scrH), backward.ToString());
+            GUI.Button(new Rect(13 * scrW, 3 * scrH, scrW, scrH), interact.ToString());
+            GUI.Button(new Rect(13 * scrW, 4 * scrH, scrW, scrH), sprint.ToString());
+            GUI.Button(new Rect(13 * scrW, 5 * scrH, scrW, scrH), fire.ToString());
+            GUI.Button(new Rect(13 * scrW, 6 * scrH, scrW, scrH), right.ToString());
+            GUI.Button(new Rect(13 * scrW, 7 * scrH, scrW, scrH), left.ToString());
             #endregion
 
             #region Sliders
@@ -149,6 +154,70 @@ public class MenuScript : MonoBehaviour
             volumeSlider = 0;
             music.volume = 0;
             return false;
+        }
+    }
+    public void Forward()
+    {
+        if (!(backward == KeyCode.None || left == KeyCode.None || right == KeyCode.None || crouch == KeyCode.None || jump == KeyCode.None || interact == KeyCode.None || sprint == KeyCode.None))
+        {
+            holdingKey = forward;
+            forward = KeyCode.None;
+        }
+    }
+    public void Backward()
+    {
+        if (!(forward == KeyCode.None || left == KeyCode.None || right == KeyCode.None || crouch == KeyCode.None || jump == KeyCode.None || interact == KeyCode.None || sprint == KeyCode.None))
+        {
+            holdingKey = backward;
+            backward = KeyCode.None;
+        }
+    }
+    public void Left()
+    {
+        if (!(backward == KeyCode.None || forward == KeyCode.None || right == KeyCode.None || crouch == KeyCode.None || jump == KeyCode.None || interact == KeyCode.None || sprint == KeyCode.None))
+        {
+            holdingKey = left;
+            left = KeyCode.None;
+        }
+    }
+    public void Right()
+    {
+        if (!(backward == KeyCode.None || left == KeyCode.None || forward == KeyCode.None || crouch == KeyCode.None || jump == KeyCode.None || interact == KeyCode.None || sprint == KeyCode.None))
+        {
+            holdingKey = right;
+            right = KeyCode.None;
+        }
+    }
+    public void Jump()
+    {
+        if (!(backward == KeyCode.None || left == KeyCode.None || right == KeyCode.None || crouch == KeyCode.None || forward == KeyCode.None || interact == KeyCode.None || sprint == KeyCode.None))
+        {
+            holdingKey = jump;
+            jump = KeyCode.None;
+        }
+    }
+    public void Fire()
+    {
+        if (!(backward == KeyCode.None || left == KeyCode.None || right == KeyCode.None || forward == KeyCode.None || jump == KeyCode.None || interact == KeyCode.None || sprint == KeyCode.None))
+        {
+            holdingKey = crouch;
+            fire = KeyCode.None;
+        }
+    }
+    public void Sprint()
+    {
+        if (!(backward == KeyCode.None || left == KeyCode.None || right == KeyCode.None || crouch == KeyCode.None || jump == KeyCode.None || interact == KeyCode.None || forward == KeyCode.None))
+        {
+            holdingKey = sprint;
+            sprint = KeyCode.None;
+        }
+    }
+    public void Interact()
+    {
+        if (!(backward == KeyCode.None || left == KeyCode.None || right == KeyCode.None || crouch == KeyCode.None || jump == KeyCode.None || forward == KeyCode.None || sprint == KeyCode.None))
+        {
+            holdingKey = interact;
+            interact = KeyCode.None;
         }
     }
 }
