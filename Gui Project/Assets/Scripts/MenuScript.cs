@@ -70,26 +70,28 @@ public class MenuScript : MonoBehaviour
         if (!showOptions)
         {
             GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "", menuStyle);//background
-            //GUI.skin = menuFont;
+
+            GUI.skin = menuFont;
             GUI.Box(new Rect(4 * scrW, 0.25f * scrH, 8 * scrW, 2 * scrH), "Easycoded Main Menu");
             //buttons
-            if (GUI.Button(new Rect(6 * scrW, 4 * scrH, 4 * scrW, scrH), "Play"))
+            if (GUI.Button(new Rect(1.25f * scrW, 4 * scrH, 4 * scrW, scrH), "Play"))
             {
                 SceneManager.LoadScene(1);
             }
-            if (GUI.Button(new Rect(6 * scrW, 5 * scrH, 4 * scrW, scrH), "Options"))
+            if (GUI.Button(new Rect(1.25f * scrW, 5 * scrH, 4 * scrW, scrH), "Options"))
             {
                 showOptions = (true);
             }
-            if (GUI.Button(new Rect(6 * scrW, 6 * scrH, 4 * scrW, scrH), "Exit"))
+            if (GUI.Button(new Rect(1.25f * scrW, 6 * scrH, 4 * scrW, scrH), "Exit"))
             {
                 Application.Quit();
             }
         }
         else if (showOptions)
         {
-            //GUI.skin = menuFont;
-            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");//background
+            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "", menuStyle);//background
+            GUI.skin = menuFont;
+          
             GUI.Box(new Rect(4 * scrW, 0.25f * scrH, 8 * scrW, 2 * scrH), "Easycoded Options");
             //set our aspect ratio if screen size changes
             if (scrW != Screen.width / 16)
